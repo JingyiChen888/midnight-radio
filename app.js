@@ -51,7 +51,12 @@ function signalAt(value) {
 }
 
 function setFeedback(message) {
-  feedbackText.textContent = message;
+  // Avoid announcing the same instruction on every tiny slider movement.
+  if (feedbackText.textContent !== message) feedbackText.textContent = message;
+}
+
+function scrollBehavior() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches ? "auto" : "smooth";
 }
 
 function updateDial() {
@@ -73,6 +78,7 @@ function updateDial() {
     signalLabel.textContent = "NO SIGNAL";
     setFeedback("Only static here. Keep moving the dial to find a station.");
   }
+  dial.setAttribute("aria-valuetext", `${(value / 10).toFixed(1)} megahertz, ${signalLabel.textContent.toLowerCase()}`);
 }
 
 function renderLog() {
@@ -123,7 +129,7 @@ function listen() {
   setFeedback(`Recorded ${station.name}. You have ${found.size} of ${stations.length} broadcasts.`);
   if (found.size === stations.length) {
     setFeedback("All three broadcasts are recorded. Read the clues, then answer the question below.");
-    puzzle.scrollIntoView({ behavior: "smooth", block: "start" });
+    puzzle.scrollIntoView({ behavior: scrollBehavior(), block: "start" });
   }
 }
 
@@ -160,7 +166,7 @@ function reset() {
   renderLog();
   updateDial();
   setFeedback("A fresh start. Move the dial to find the first hidden station.");
-  window.scrollTo({ top: 0, behavior: "smooth" });
+  window.scrollTo({ top: 0, behavior: scrollBehavior() });
 }
 
 dial.addEventListener("input", updateDial);
