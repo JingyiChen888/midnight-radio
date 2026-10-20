@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#101827" />
+    <meta name="description" content="Tune an old radio, collect three broadcasts, and solve a small midnight mystery." />
+    <title>Midnight Radio — a short interactive mystery</title>
+    <link rel="stylesheet" href="style.css" />
+    <script src="app.js" defer></script>
+  </head>
+  <body>
+    <main class="shell">
+      <header class="masthead">
+        <div class="brand"><span class="brand-mark" aria-hidden="true">✦</span> MIDNIGHT RADIO <span class="brand-no">/ 001</span></div>
+        <div class="on-air"><span class="on-air-dot" aria-hidden="true"></span> ON AIR · 00:17</div>
+      </header>
+
+      <section class="intro" aria-labelledby="page-title">
+        <p class="eyebrow">AN INTERACTIVE RADIO MYSTERY</p>
+        <h1 id="page-title">Some messages are<br /><em>meant to be found.</em></h1>
+        <p class="intro-copy">An impossible broadcast has broken through the silence. Tune the dial, collect three fragments, and find where the sender is waiting.</p>
+      </section>
+
+      <div class="layout">
+        <section class="radio-panel" aria-labelledby="radio-title">
+          <div class="panel-heading"><span class="panel-number">01 / TUNE IN</span><h2 id="radio-title">The receiver</h2></div>
+
+          <div class="receiver">
+            <div class="receiver-top"><span>MR-17 RECEIVER</span><span>FM / STEREO</span></div>
+            <div class="display" aria-live="polite">
+              <div class="display-label">CURRENT FREQUENCY</div>
+              <div class="frequency"><span id="frequency-value">88.0</span><span class="frequency-unit">MHz</span></div>
+              <div class="signal-row"><span id="signal-label">NO SIGNAL</span><div class="signal-bars" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></div></div>
+            </div>
+            <div class="tuner">
+              <label for="frequency-dial">TURN THE DIAL <span>Use the slider or arrow keys</span></label>
+              <input id="frequency-dial" type="range" min="880" max="1080" step="1" value="880" aria-describedby="tuning-hint" />
+              <div class="dial-ends"><span>88.0</span><span>98.0</span><span>108.0</span></div>
+            </div>
+            <div class="receiver-actions">
+              <button id="listen-button" class="primary-button" type="button"><span class="button-icon" aria-hidden="true">◉</span> Listen to frequency</button>
+              <button id="reset-button" class="text-button" type="button">Start over ↺</button>
+            </div>
+          </div>
+
+          <div class="feedback" id="feedback" role="status" aria-live="polite">
+            <span class="feedback-icon" aria-hidden="true">↳</span>
+            <p id="feedback-text">Move the dial. The signal grows stronger near a hidden station.</p>
+          </div>
+          <p id="tuning-hint" class="assistive-note">A clear signal lets you collect a broadcast. You can replay a station without collecting it twice.</p>
+        </section>
+
+        <section class="log-panel" aria-labelledby="log-title">
+          <div class="panel-heading"><span class="panel-number">02 / THE RECORD</span><h2 id="log-title">Signal log <span id="progress-count" class="progress-count">0 / 3</span></h2></div>
+          <p class="log-intro">Every voice is a piece of the same message.</p>
+          <ol id="clue-list" class="clue-list">
+            <li class="clue empty"><span class="clue-index">01</span><span class="clue-placeholder">A voice, still lost in the static.</span></li>
+            <li class="clue empty"><span class="clue-index">02</span><span class="clue-placeholder">Another frequency to uncover.</span></li>
+            <li class="clue empty"><span class="clue-index">03</span><span class="clue-placeholder">The final fragment is waiting.</span></li>
+          </ol>
+          <div class="log-footer"><span class="tiny-star" aria-hidden="true">✳</span><span>Collect all three broadcasts to reveal the question.</span></div>
+        </section>
+      </div>
+
+      <section id="puzzle" class="puzzle" aria-labelledby="puzzle-title" hidden>
+        <div class="puzzle-heading"><span class="panel-number">03 / DECIDE</span><h2 id="puzzle-title">Where is the sender waiting?</h2><p>Use the three broadcasts. Choose a place to complete the story.</p></div>
+        <div class="choices" role="group" aria-label="Choose the meeting place">
+          <button type="button" class="choice" data-answer="platform">The platform <span>→</span></button>
+          <button type="button" class="choice" data-answer="roof">The roof <span>→</span></button>
+          <button type="button" class="choice" data-answer="archive">The archive room <span>→</span></button>
+        </div>
+        <p id="answer-feedback" class="answer-feedback" role="status" aria-live="polite"></p>
+        <div id="ending" class="ending" hidden>
+          <span class="ending-kicker">TRANSMISSION COMPLETE</span>
+          <p>You step behind the red door beneath the clock. An old recorder clicks on. A familiar voice says, “You made it.”</p>
+          <button type="button" id="ending-reset" class="ending-reset">Play again ↺</button>
+        </div>
+      </section>
+
+      <footer class="site-footer"><span>AN ORIGINAL SHORT INTERACTIVE EXPERIENCE</span><span>BEST WITH CURIOSITY, NO HEADPHONES REQUIRED</span></footer>
+    </main>
+  </body>
+</html>
